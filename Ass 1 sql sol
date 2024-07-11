@@ -1,0 +1,62 @@
+CREATE Table Publishers(
+publisher_id int primary key identity(1,1),
+publisher_name varchar (50) not null,
+
+)
+
+insert into Publishers values("Bloomsberry");
+
+select * from Publishers;
+
+
+
+CREATE Table categories(
+category_id int primary key identity(1,1),
+category_name varchar (50) not null,
+
+)
+insert into categories values("fantasy");
+
+select * from categories;
+
+
+
+CREATE Table  users(
+user_id int primary key identity(1,1),
+user_name varchar (50) not null,
+email varchar(50)unique not null,
+phone_number varchar(50)unique not null,
+
+)
+insert into users values("priya","priya123@gmail.com","9178197056");
+
+select * from users;
+
+
+CREATE TABLE Books(
+book_id int primary key identity(1,1),
+Title varchar (50) not null,
+ISBN varchar (100)  unique not null,
+Publication_year varchar (50) not null,
+Publisher_id  int foreign key references publishers(publisher_id) on delete cascade,
+Category_id  int Foreign key references categories(category_id) on delete cascade,
+Author_Name varchar(30)check (Author_Name is not null),
+
+)
+
+insert into Books values("Harry Potter","0-7475-9105-9","2007",1,1,"J.k Rowling");
+
+select * from Books;
+
+
+CREATE Table  borrowings(
+borrow_id int primary key identity(1,1),
+borrow_date date not null,
+return_date date not null,
+user_id  int foreign key references users(user_id) on delete cascade,
+book_id  int foreign key references books(book_id) on delete cascade
+)
+
+insert into borrowings values ("2024-12-12","7.6.2023",1,1);
+
+select * from borrowings;
